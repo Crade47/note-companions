@@ -13,9 +13,14 @@ function App() {
   //Getting the notes
   useEffect(()=>{
 
-      const getInfo = async () =>{
-        const data = await getDocs(usersCollectionRef);
-        setUsers(data.docs.map((doc) =>({ ...doc.data(), id:doc.id })));
+      const getInfo = () =>{
+        // const data = await getDocs(usersCollectionRef);
+        // setUsers(data.docs.map((doc) =>({ ...doc.data(), id:doc.id })));
+
+        onSnapshot(usersCollectionRef,(snapshot)=>{
+          setUsers(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+        })
+
       }
       // const q = query(collection(db, "user"));
       // const unsub = onSnapshot(q,(querySnapshot)=>{
@@ -26,6 +31,7 @@ function App() {
       //   setUsers(todo);
       // })
       // return () => unsub();
+      
       getInfo();
  
   },[])

@@ -23,6 +23,7 @@ function TextField() {
     event.preventDefault()
     addDoc(usersCollectionRef,textData)
       .then(setTextData({title: "", content: ""}))
+    
   }
 
   return (
