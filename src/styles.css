@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .card{
+        @apply bg-[rgba(247,212,76,255)] 
+        max-w-[20rem] max-h-[10rem]
+        mt-[3rem]
+        [line-clamp:4]
+        overflow-hidden
+        whitespace-nowrap
+        text-ellipsis
+        p-20 pl-2 pt-7
+        ml-4 
+        rounded-3xl
+        ;
+    }
+}
+
+
+
