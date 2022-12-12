@@ -2,35 +2,24 @@ import { useEffect, useState } from 'react'
 import TextField from './components/TextField'
 import Card from './components/Card'
 import { db } from "../firebase-config"
-import { collection, getDocs, onSnapshot, query, doc, deleteDoc } from "firebase/firestore"
+import { collection, getDocs, onSnapshot, query, doc, deleteDoc, orderBy } from "firebase/firestore"
 
 function App() {
   const [users, setUsers] = useState([]);
 
   const usersCollectionRef = collection(db, "user");
 
+  const q = query(usersCollectionRef, orderBy("createdAt", 'desc'));
   
   //Getting the notes
   useEffect(()=>{
 
       const getInfo = () =>{
-        // const data = await getDocs(usersCollectionRef);
-        // setUsers(data.docs.map((doc) =>({ ...doc.data(), id:doc.id })));
-
-        onSnapshot(usersCollectionRef,(snapshot)=>{
+        onSnapshot(q,(snapshot)=>{
           setUsers(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
         })
 
       }
-      // const q = query(collection(db, "user"));
-      // const unsub = onSnapshot(q,(querySnapshot)=>{
-      //   let todo = [];
-      //   querySnapshot.forEach((doc)=>{
-      //     todo.push({...doc.data(), id: doc.id});
-      //   })
-      //   setUsers(todo);
-      // })
-      // return () => unsub();
       
       getInfo();
  
@@ -50,6 +39,7 @@ function App() {
         {users.map((item) => {
         return(
           <Card
+            key={item.id}
             id={item.id} 
             title={item.title} 
             content={item.content}
