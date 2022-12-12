@@ -7,7 +7,11 @@ import { signInWithPopup } from 'firebase/auth'
 
 function App() {
   const [usersContent, setUsersContent] = useState([]);
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(auth.currentUser);
+  const [userInfo, setUserInfo] = useState({
+    name: '',
+    photoURL: ''
+  })
 
   const usersCollectionRef = collection(db, "user");
 
@@ -16,14 +20,22 @@ function App() {
   //GOOGLE SIGN IN
   const signInWithGoogle = () =>{
     signInWithPopup(auth, provider).then((result)=>{
-      console.log(result.user);
-    })
+      
+      setUserInfo({
+        name: result.user.displayName, 
+        photoURL: result.user.photoURL
+      });
+      
+    }).then(
+      setIsLoggedIn((prevState) => !prevState)
+    )
+
   }
 
   //SIGN OUT
   const signOutWithGoogle = () =>{
     auth.signOut()
-      .then(()=> console.log("SignOut Successful"))
+      .then(setIsLoggedIn((prevState) => !prevState))
       .catch((error) => console.log(`Error: ${error}`));
   }
   
@@ -39,8 +51,11 @@ function App() {
       
       getInfo();
  
+ 
   },[])
 
+  
+  
   const deleteNote = (id) =>{
     const docReference = doc(db, "user", id);
     deleteDoc(docReference)
@@ -53,6 +68,7 @@ function App() {
       <button className='text-xl text-white bg-violet-400 p-3' onClick={signInWithGoogle}>
         Sign in
       </button>
+      {/* {isLoggedIn ? <div className='text-white text-5xl'>Current User: {userInfo.name}</div>:<div className='text-white text-5xl'>'No user'</div>} */}
       <button className='text-xl text-white bg-violet-600 p-3' onClick={signOutWithGoogle}>
         Sign Out
       </button>
