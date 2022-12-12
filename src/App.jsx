@@ -1,22 +1,38 @@
 import { useEffect, useState } from 'react'
 import TextField from './components/TextField'
 import Card from './components/Card'
-import { db } from "../firebase-config"
+import { db, auth, provider } from "../firebase-config"
 import { collection, getDocs, onSnapshot, query, doc, deleteDoc, orderBy } from "firebase/firestore"
+import { signInWithPopup } from 'firebase/auth'
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const [usersContent, setUsersContent] = useState([]);
+  
 
   const usersCollectionRef = collection(db, "user");
 
-  const q = query(usersCollectionRef, orderBy("createdAt", 'desc'));
+  const queryOrder = query(usersCollectionRef, orderBy("createdAt", 'desc'));
+
+  //GOOGLE SIGN IN
+  const signInWithGoogle = () =>{
+    signInWithPopup(auth, provider).then((result)=>{
+      console.log(result.user);
+    })
+  }
+
+  //SIGN OUT
+  const signOutWithGoogle = () =>{
+    auth.signOut()
+      .then(()=> console.log("SignOut Successful"))
+      .catch((error) => console.log(`Error: ${error}`));
+  }
   
   //Getting the notes
   useEffect(()=>{
 
       const getInfo = () =>{
-        onSnapshot(q,(snapshot)=>{
-          setUsers(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+        onSnapshot(queryOrder,(snapshot)=>{
+          setUsersContent(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
         })
 
       }
@@ -34,9 +50,15 @@ function App() {
     <div className="dark bg-black h-screen">
 
       <div className="text-4xl sm:text-center text-left font-inconsolata dark:text-white text-black">My Notes</div>
+      <button className='text-xl text-white bg-violet-400 p-3' onClick={signInWithGoogle}>
+        Sign in
+      </button>
+      <button className='text-xl text-white bg-violet-600 p-3' onClick={signOutWithGoogle}>
+        Sign Out
+      </button>
       <TextField />
       <div className="flex flex-wrap">
-        {users.map((item) => {
+        {usersContent.map((item) => {
         return(
           <Card
             key={item.id}
@@ -47,7 +69,7 @@ function App() {
           />)
         })}
       </div>
-    
+      
     
     </div>
   )
