@@ -8,7 +8,7 @@ function ProtectedRoute({ component: Component}) {
   useEffect(() => {
 
     const checkIfLoggedIn = () =>{
-        if(user.uid === ""){
+        if(user.uid === "" || null || undefined){
             return false
         }
         return true;

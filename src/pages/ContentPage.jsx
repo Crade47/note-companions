@@ -12,7 +12,6 @@ function ContentPage(){
     const queryOrder = query(usersCollectionRef, orderBy("createdAt", 'desc'));
     
     const [usersContent, setUsersContent] = useState([]);
-    // const [showForm, setShowForm] = useState(false);
 
 
 
@@ -40,6 +39,13 @@ function ContentPage(){
         })
 
       }
+
+      const checkIfUserExists = () =>{
+        if(!user){
+            navigate('/login')
+        }
+      }
+      checkIfUserExists();
       getInfo();
     },[])
       
