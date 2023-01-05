@@ -1,12 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
-  content: ["./src/**/*.{html,js,jsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{html,js,jsx}"
+  ],
   theme: {
     fontFamily:{
-      inconsolata:['"Inconsolata"', ...defaultTheme.fontFamily.sans]
+      inconsolata:['"Inconsolata"', ...defaultTheme.fontFamily.sans],
+      chivoMono: ['"Chivo Mono"', ...defaultTheme.fontFamily.sans],
+      rowanMedium: ['"Rowan-Medium"','cursive'],
+      satoshiLight:['"Satoshi-Regular"', 'sans-serif']
     },
-    extend: {},
+    extend: {
+      gridTemplateColumns:
+      {
+        'parent': '112.8px 1fr'
+      }
+    },
     darkMode:'class'
   },
   plugins: [],
