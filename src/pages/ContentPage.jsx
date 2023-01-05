@@ -53,7 +53,7 @@ function ContentPage(){
         <>
             <div className="md:grid md:grid-cols-parent">
                 <Sidebar 
-                displayName={user.displayName} 
+                displayName='dEVANSH'
                 signOutHandler={signOutHandler}
                 />
 
