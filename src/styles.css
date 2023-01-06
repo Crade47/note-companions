@@ -19,7 +19,7 @@ body{
 
 .ellipsis {
     overflow-y: hidden;
-    max-height: 10rem;
+    white-space: nowrap;
     
 }
 
@@ -42,9 +42,9 @@ body{
       
       @font-face {
         font-family: 'Rowan-Medium';
-        src: url('./fonts/Rowan-Medium.woff2') format('woff2'),
-             url('./fonts/Rowan-Medium.woff') format('woff'),
-             url('./fonts/Rowan-Medium.ttf') format('truetype');
+        src: url('./fonts/rowan/Rowan-Medium.woff2') format('woff2'),
+             url('./fonts/rowan/Rowan-Medium.woff') format('woff'),
+             url('./fonts/rowan/Rowan-Medium.ttf') format('truetype');
              font-weight: 500;
              font-display: swap;
              font-style: normal;

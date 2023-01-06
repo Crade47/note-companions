@@ -53,7 +53,7 @@ function ContentPage(){
         <>
             <div className="md:grid md:grid-cols-parent">
                 <Sidebar 
-                displayName='dEVANSH'
+                displayName={user.displayName}
                 signOutHandler={signOutHandler}
                 />
 
@@ -81,7 +81,7 @@ function ContentPage(){
                 hover:bg-[#f9cdc0]
                 md:flex justify-center
                 ">
-                    <div className="border-2 rounded-3xl border-dashed border-[#dfb589] flex items-center justify-center p-14">
+                    <div className="border-2 rounded-3xl border-dashed border-[#dfb589] flex items-center justify-center sm:p-5 md:p-10 lg:p-10 xl:p-14">
                         <button className="">
                                 <img src="https://img.icons8.com/ios/50/dfb589/plus-math--v1.png"/>
                         </button>

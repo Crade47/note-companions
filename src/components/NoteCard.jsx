@@ -19,7 +19,7 @@ function NoteCard(props) {
 
             >
                 {/*Title Field*/}
-                <div className=" bg-[#B9CD94] text-[#57423F] rounded-t-[10px]  px-7 py-4 inline-block font-rowanMedium text-xl
+                <div className=" bg-[#B9CD94] text-[#57423F] rounded-t-[10px]  px-7 py-4 inline-block font-rowanMedium text-lg
                 ellipsis text-ellipsis 
                 ">
                     {props.title}
