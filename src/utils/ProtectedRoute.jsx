@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
-import { Navigate, Route, useLocation, useNavigate, Routes, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation} from 'react-router-dom';
 
-function ProtectedRoute() {
+function ProtectedRoute({children}) {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("user"));
-
+  console.log(user);
 
 
   return(
-    user ? <Outlet/> : <Navigate to="/login" replace state={{ from: location }}/>
+    !user || user.uid==="" ? <Navigate to="/login" replace state={{ from: location }}/> : children
   ) 
 
   ;

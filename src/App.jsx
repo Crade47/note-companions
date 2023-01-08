@@ -13,27 +13,12 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <ProtectedRoute />,
-      children:[
-        {
-          path: "content",
-          element: <ContentPage/>
-        }
-      ]
+      element: <ProtectedRoute> <ContentPage/> </ProtectedRoute>,
+      
     },
     {
       path: "/login",
       element: <LoginPage/>
-    },
-    {
-      path: "/content",
-      element: <ProtectedRoute/>,
-      children:[
-        {
-          path: "content",
-          element: <ContentPage/>
-        }
-      ]
     }
   ])
 

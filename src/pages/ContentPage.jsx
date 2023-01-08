@@ -8,6 +8,7 @@ import NoteCard from "../components/NoteCard";
 import { createPortal } from "react-dom";
 import FormPopup from "../components/FormPopup";
 function ContentPage(){
+    console.log("content page rendered");
     const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
     const usersCollectionRef = collection(db, `users/${user.uid}/notes`);

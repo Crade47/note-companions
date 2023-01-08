@@ -49,7 +49,7 @@ function LoginPage(){
                 >
                     <img src="https://img.icons8.com/bubbles/70/null/google-logo.png"/>
                 </button>
-                {shouldRedirect && <Navigate to="/content"/>}
+                {shouldRedirect && <Navigate to="/"/>}
             </div>
         </>
     )
