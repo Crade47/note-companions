@@ -5,14 +5,16 @@ import { useEffect, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore";
 
 import NoteCard from "../components/NoteCard";
+import { createPortal } from "react-dom";
+import FormPopup from "../components/FormPopup";
 function ContentPage(){
     const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
-    const usersCollectionRef = collection(db, "user");
+    const usersCollectionRef = collection(db, `users/${user.uid}/notes`);
     const queryOrder = query(usersCollectionRef, orderBy("createdAt", 'desc'));
     
     const [usersContent, setUsersContent] = useState([]);
-
+    const [isOpen, setIsOpen] = useState(false)
 
 
     const signOutHandler = () =>{
@@ -27,8 +29,12 @@ function ContentPage(){
       
 
     const deleteNote = (id) =>{
-        const docReference = doc(db, "user", id);
+        const docReference = doc(db, `users/${user.uid}/notes`, id);
         deleteDoc(docReference);
+    }
+
+    const formOpen = () =>{
+        setIsOpen(prevState => !prevState);
     }
 
     useEffect(()=>{
@@ -40,12 +46,13 @@ function ContentPage(){
 
       }
 
-      const checkIfUserExists = () =>{
-        if(!user){
-            navigate('/login')
-        }
-      }
-      checkIfUserExists();
+    //   const checkIfUserExists = () =>{
+    //     if(!user){
+    //         navigate('/login')
+    //     }
+    //   }
+    //   checkIfUserExists();
+
       getInfo();
     },[])
       
@@ -55,6 +62,7 @@ function ContentPage(){
                 <Sidebar 
                 displayName={user.displayName}
                 signOutHandler={signOutHandler}
+                formOpen={formOpen}
                 />
 
                 <div 
@@ -80,7 +88,9 @@ function ContentPage(){
                 active:bg-[#c37f37]
                 hover:bg-[#f9cdc0]
                 md:flex justify-center
-                ">
+                "
+                onClick={formOpen}
+                >
                     <div className="border-2 rounded-3xl border-dashed border-[#dfb589] flex items-center justify-center sm:p-5 md:p-10 lg:p-10 xl:p-14">
                         <button className="">
                                 <img src="https://img.icons8.com/ios/50/dfb589/plus-math--v1.png"/>
@@ -102,6 +112,12 @@ function ContentPage(){
                     })
                 }
                 </div>
+                {
+                    createPortal(
+                        <FormPopup isOpen={isOpen} user={user} formOpen={formOpen}/>,
+                        document.getElementById("portal")
+                    )
+                }
                 
             </div>
 

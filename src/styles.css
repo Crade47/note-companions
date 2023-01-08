@@ -17,25 +17,7 @@ body{
     background-color: #fdebd6;
 }
 
-.ellipsis {
-    overflow-y: hidden;
-    white-space: nowrap;
-    
-}
 
-.ellipsis-inner {
-    text-overflow: ellipsis;
-   
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    -moz-line-clamp: 4;
-    -moz-box-orient: vertical;
-    line-clamp: 4;
-    box-orient: vertical;
-    font-size: 0.875em;
-    line-height: 1.5;
-  }
 
 
 @layer base{

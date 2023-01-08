@@ -16,7 +16,7 @@ function Sidebar(props) {
             
             ">
                 <img src={logo} alt="logo" className='w-[7rem] mr-auto '/>
-                <button className='border-spacing-0 p-0 rounded-full absolute left-[50%] -translate-x-2/4 top-[83px] mx-auto'>
+                <button className='border-spacing-0 p-0 rounded-full absolute left-[50%] -translate-x-2/4 top-[83px] mx-auto' onClick={props.formOpen}>
                     <img src={addButton} alt="addButton" className='md:hidden' width={60} />
                 </button>
                 <div className="grid grid-cols-[20px_90%] md:grid-rows-[15%_15%] 
