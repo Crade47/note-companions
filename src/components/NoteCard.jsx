@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import cowCard from '../assets/companions/cow/cow_card.png'
 function NoteCard(props) {
     const [showButton, setShowButton] = useState(false)
 
@@ -7,7 +7,7 @@ function NoteCard(props) {
     const titleComponent = () =>{
         return(
             <>
-                <div className="  text-[#57423F] rounded-t-[10px]  px-7 py-4 inline-block font-rowanMedium text-lg
+                <div className="  text-[#57423F] rounded-t-[10px]   inline-block font-rowanMedium text-lg
                 ellipsis text-ellipsis 
                 ">
                     {props.title}
@@ -20,7 +20,8 @@ function NoteCard(props) {
         return(
             <>  
                 <div className="   
-                px-7 py-6 inline-block
+                inline-block
+                py-2
                 text-white
                 font-satoshiLight
                 rounded-b-[20px]
@@ -50,6 +51,7 @@ function NoteCard(props) {
             shadow-2xl
             bg-[#faa0a0]  
             rounded-[20px] 
+            p-7
             relative hover:opacity-100"
             onMouseEnter={() => setShowButton(prevState => !prevState)}
             onMouseLeave={() => setShowButton(prevState => !prevState)}
@@ -58,9 +60,9 @@ function NoteCard(props) {
                 {/*Title Field*/}
                 
 
-                {titleComponent()}
+                {props.title && titleComponent()}
                   
-                {contentComponent()}  
+                {props.content && contentComponent()}  
                 {showButton &&(
                     <button className="rounded-full bg-[#ff5d5d] p-2  absolute -bottom-2 -right-2 " onClick={()=>props.deleteNote(props.id)}>
                         <img src="https://img.icons8.com/pastel-glyph/23/FFFFFF/trash.png"/>
