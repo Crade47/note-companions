@@ -4,7 +4,6 @@ import { Navigate, Outlet, useLocation} from 'react-router-dom';
 function ProtectedRoute({children}) {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
 
 
   return(

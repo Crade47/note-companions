@@ -8,7 +8,7 @@ import NoteCard from "../components/NoteCard";
 import { createPortal } from "react-dom";
 import FormPopup from "../components/FormPopup";
 function ContentPage(){
-    console.log("content page rendered");
+   
     const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
     const usersCollectionRef = collection(db, `users/${user.uid}/notes`);
@@ -69,7 +69,7 @@ function ContentPage(){
                 <div 
                 className="
                 mx-auto
-                p-7 mt-5 md:mt-0
+                p-7 mt-10 md:mt-5
                 grid 
                 grid-cols-1
                 sm:grid-cols-2
@@ -105,6 +105,7 @@ function ContentPage(){
                             <NoteCard
                                 key = {item.id}
                                 id = {item.id}
+                                companion = {item.companion}
                                 title = {item.title}
                                 content={item.content}
                                 deleteNote={deleteNote}

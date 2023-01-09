@@ -1,8 +1,6 @@
 import { addDoc, collection, orderBy, serverTimestamp } from 'firebase/firestore';
 import { useState, useEffect } from 'react'
 import { db } from '../../firebase-config';
-
-import bearForm from '../assets/companions/bear/bear_form.png'
 import cowForm from '../assets/companions/cow/cow_form.png'
 import monkeyForm from '../assets/companions/monkey/monkey_form.png'
 import pandaForm from '../assets/companions/panda/panda_form.png'
