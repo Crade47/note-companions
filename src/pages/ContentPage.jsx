@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase-config"
 import { useEffect, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore";
-
+import { motion } from "framer-motion";
 import NoteCard from "../components/NoteCard";
 import { createPortal } from "react-dom";
 import FormPopup from "../components/FormPopup";
@@ -47,15 +47,21 @@ function ContentPage(){
 
       }
 
-    //   const checkIfUserExists = () =>{
-    //     if(!user){
-    //         navigate('/login')
-    //     }
-    //   }
-    //   checkIfUserExists();
-
       getInfo();
     },[])
+
+    
+
+    const button = {
+        rest: { scale: 1 },
+        hover: { scale: 1.1, transition:{type:"spring", stiffness:100} },
+        pressed: { scale: 0.95 },
+        
+      };
+      const plus = {
+        rest: { rotate: 0 },
+        hover: { rotate: 360, transition: { duration: 0.5 } }
+      };
       
     return(
         <>
@@ -67,38 +73,49 @@ function ContentPage(){
                 />
 
                 <div 
-                className="
-                mx-auto
-                p-7 mt-10 md:mt-5
-                grid 
-                grid-cols-1
-                sm:grid-cols-2
-                md:grid-cols-3
-                lg:grid-cols-4
-                gap-y-16
-                gap-x-14
-                ">
+                    className="
+                    mx-auto
+                    p-7 mt-10 md:mt-5
+                    grid 
+                    grid-cols-1
+                    sm:grid-cols-2
+                    md:grid-cols-3
+                    lg:grid-cols-4
+                    gap-y-16
+                    gap-x-14
+                    "
+                >
 
                 {/* add button */}
-                <div className="p-5 
-                border-2 border-[#6e3820] rounded-3xl
-                hidden  
-                max-w-[13rem]
-                max-h-[13rem]
-                cursor-pointer
-                active:bg-[#c37f37]
-                hover:bg-[#f9cdc0]
-                md:flex justify-center
-                "
-                onClick={formOpen}
+                <motion.div 
+                    className="
+                    p-5 
+                    border-2 border-[#6e3820] rounded-3xl
+                    hidden  
+                    max-w-[13rem]
+                    max-h-[13rem]
+                    cursor-pointer
+                    active:bg-[#c37f37]
+                    hover:bg-[#f9cdc0]
+                    md:flex justify-center
+                    "
+                    onClick={formOpen}
+                    variants={button}
+                    whileHover="hover"
+                    whileTap="pressed"
                 >
                     <div className="border-2 rounded-3xl border-dashed border-[#dfb589] flex items-center justify-center sm:p-5 md:p-10 lg:p-10 xl:p-14">
                         <button className="">
-                                <img src="https://img.icons8.com/ios/50/dfb589/plus-math--v1.png"/>
+                                <motion.img 
+                                    src="https://img.icons8.com/ios/50/dfb589/plus-math--v1.png" 
+                                    whileHover={{ rotate: 45 }}
+                                    transition={{ duration: 0.6 }}
+                                    variants={plus}
+                                />
                         </button>
                     </div>
                    
-                </div>
+                </motion.div>
                 {
                     usersContent.map((item)=>{
                         return(

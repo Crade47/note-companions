@@ -1,5 +1,6 @@
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.svg'
 import addButton from '../assets/add-button-mobile.png'
+import { motion } from 'framer-motion'
 function Sidebar(props) {
     const displayName = props.displayName.match(/^\w+/);
 
@@ -17,7 +18,7 @@ function Sidebar(props) {
             ">
                 <img src={logo} alt="logo" className='w-[7rem] mr-auto '/>
                 <button className='border-spacing-0 p-0 rounded-full absolute left-[50%] -translate-x-2/4 top-[83px] mx-auto' onClick={props.formOpen}>
-                    <img src={addButton} alt="addButton" className='md:hidden' width={60} />
+                    <motion.img src={addButton} alt="addButton" className='md:hidden' width={60} whileTap={{scale: 1.1}} />
                 </button>
                 <div className="grid grid-cols-[20px_90%] md:grid-rows-[15%_15%] 
                 md:gap-y-5 md:mt-auto md:mb-5 
@@ -42,9 +43,5 @@ function Sidebar(props) {
         </>
     )
 }
-
-
-// flex flex-col gap-2 items-center md:items-end 
-//                 md:pt-2  mt-0 mb-0 mr-4 md:mx-auto md:my-0
 
 export default Sidebar

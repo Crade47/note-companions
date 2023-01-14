@@ -1,6 +1,7 @@
 import { addDoc, collection, orderBy, serverTimestamp } from 'firebase/firestore';
 import { useState, useEffect } from 'react'
 import { db } from '../../firebase-config';
+import { motion } from 'framer-motion';
 import cowForm from '../assets/companions/cow/cow_form.png'
 import monkeyForm from '../assets/companions/monkey/monkey_form.png'
 import pandaForm from '../assets/companions/panda/panda_form.png'
@@ -136,23 +137,40 @@ export default function FormPopup({isOpen, user, formOpen}) {
         )
     }
 
+    const formVariant = {
+        hidden:{
+            scale: 0.1
+        },
+        animate:{
+            scale: 1,
+            zIndex:10000
+        },
+        transition:{duration: 2}
+    }
+
   return (
     <>
         <div className="fixed top-0 left-0 right-0 bottom-0 bg-[rgb(0,0,0,0.7)] h-screen w-screen z-50">
         </div>
         <div>
 
-            <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#dfb589] p-5 z-50 rounded-[10px] min-w-[80%] md:min-w-fit lg:max-w-[10rem]'>
+            <motion.div 
+                className='
+                fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+                bg-[#dfb589] p-5 z-[51] rounded-[10px] min-w-[80%] 
+                md:min-w-fit lg:max-w-[10rem]
+                '>   
                     {/* closeButton */}
-                    <button className='absolute right-4 top-4 p-2
-                    active:border-2 ' onClick={formOpen}> 
+                    <button 
+                    className='
+                    absolute right-4 top-4 p-2
+                    active:border-2 ' 
+                    onClick={formOpen}> 
                         <img src="https://img.icons8.com/fluency-systems-regular/20/FFFFFF/multiply.png"/>
                     </button>
                     <form className='flex flex-col' onSubmit={handleSubmit}>
 
                         { isCompanionPage ? companionPortion() : textInputPortion()}
-                        
-                        {/* {companionPortion()} */}
 
                         {
                             isCompanionPage ? (
@@ -193,7 +211,7 @@ export default function FormPopup({isOpen, user, formOpen}) {
 
 
                     </form>
-            </div>
+            </motion.div>
         </div>
     </>
   )
