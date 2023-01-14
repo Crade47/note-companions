@@ -137,82 +137,91 @@ export default function FormPopup({isOpen, user, formOpen}) {
         )
     }
 
-    const formVariant = {
+    const formContainerVariant = {
         hidden:{
-            scale: 0.1
+            opacity:0
         },
-        animate:{
-            scale: 1,
-            zIndex:10000
+        visible:{
+          
+            opacity:1
+            
         },
-        transition:{duration: 2}
+        transition:{duration: 0.1, ease:"easeInOut"}
     }
 
   return (
     <>
-        <div className="fixed top-0 left-0 right-0 bottom-0 bg-[rgb(0,0,0,0.7)] h-screen w-screen z-50">
-        </div>
-        <div>
+        <motion.div
+            variants={formContainerVariant}
+            initial="hidden"
+            animate="visible"
+        >
+            <div className="fixed top-0 left-0 right-0 bottom-0 bg-[rgb(0,0,0,0.7)] h-screen w-screen z-50">
+            </div>
+            <div>
 
-            <motion.div 
-                className='
-                fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-                bg-[#dfb589] p-5 z-[51] rounded-[10px] min-w-[80%] 
-                md:min-w-fit lg:max-w-[10rem]
-                '>   
-                    {/* closeButton */}
-                    <button 
+                <div 
                     className='
-                    absolute right-4 top-4 p-2
-                    active:border-2 ' 
-                    onClick={formOpen}> 
-                        <img src="https://img.icons8.com/fluency-systems-regular/20/FFFFFF/multiply.png"/>
-                    </button>
-                    <form className='flex flex-col' onSubmit={handleSubmit}>
+                    fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+                    bg-[#dfb589] p-5 z-[51] rounded-[10px] min-w-[80%] 
+                    md:min-w-fit lg:max-w-[10rem]
+                    '
 
-                        { isCompanionPage ? companionPortion() : textInputPortion()}
+                >   
+                        {/* closeButton */}
+                        <button 
+                        className='
+                        absolute right-4 top-4 p-2
+                        active:border-2 ' 
+                        onClick={formOpen}> 
+                            <img src="https://img.icons8.com/fluency-systems-regular/20/FFFFFF/multiply.png"/>
+                        </button>
+                        <form className='flex flex-col' onSubmit={handleSubmit}>
 
-                        {
-                            isCompanionPage ? (
+                            { isCompanionPage ? companionPortion() : textInputPortion()}
 
-                            <button type="submit"
-                                className='
-                                    border-2 border-[#b8650e]
-                                    text-md md:text-xl font-chivoMono text-[#c37f37]
-                                    max-w-fit
-                                    mx-auto px-3 py-1
-                                    mt-10
-                                ' 
-                            >
-                                Submit
-                            </button>
-                            )
-                            :
-                            (
+                            {
+                                isCompanionPage ? (
 
-                                <button 
-                                    type='button'
+                                <button type="submit"
                                     className='
                                         border-2 border-[#b8650e]
                                         text-md md:text-xl font-chivoMono text-[#c37f37]
                                         max-w-fit
                                         mx-auto px-3 py-1
                                         mt-10
-                                    '
-                                    onClick={(event) => {
-                                        event.preventDefault()
-                                        setIsCompanionPage(prevState => !prevState)
-                                    }} 
+                                    ' 
                                 >
-                                    Select Companion
+                                    Submit
                                 </button>
-                            )
-                        }
+                                )
+                                :
+                                (
+
+                                    <button 
+                                        type='button'
+                                        className='
+                                            border-2 border-[#b8650e]
+                                            text-md md:text-xl font-chivoMono text-[#c37f37]
+                                            max-w-fit
+                                            mx-auto px-3 py-1
+                                            mt-10
+                                        '
+                                        onClick={(event) => {
+                                            event.preventDefault()
+                                            setIsCompanionPage(prevState => !prevState)
+                                        }} 
+                                    >
+                                        Select Companion
+                                    </button>
+                                )
+                            }
 
 
-                    </form>
-            </motion.div>
-        </div>
+                        </form>
+                </div>
+            </div>
+        </motion.div>
     </>
   )
 }

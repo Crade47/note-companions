@@ -111,6 +111,13 @@ function NoteCard(props) {
         tap:{scale: 0.9},
     }
 
+    const companionVariant ={
+        hover:{
+            y:[0,10,-10,15,0],
+            transition:{duration:1, ease:"easeInOut"}
+        }
+    }
+
     return(
         <> 
             <AnimatePresence>
@@ -165,7 +172,7 @@ function NoteCard(props) {
                         whileHover="hover"
                         whileTap="tap"
                     >
-                        {!isNone && <img src={companion_Object[companion].card} alt={companion} className={companion_Object[companion].class} />}
+                        {!isNone && <motion.img src={companion_Object[companion].card} alt={companion} className={companion_Object[companion].class} variants={companionVariant} whileHover="hover" />}
                         
 
                         

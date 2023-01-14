@@ -2,7 +2,6 @@ import { signInWithPopup } from "firebase/auth"
 import { useContext, useEffect, useState } from "react"
 import { Navigate } from "react-router-dom";
 import { auth, provider } from "../../firebase-config"
-import userContext from "../context/userContext"
 import loginImage from "../assets/sadcomputer.png"
 
 function LoginPage(){
@@ -11,7 +10,6 @@ function LoginPage(){
         displayName: "",
         photoURL: ""
     })
-    const userContextObj = useContext(userContext);
     const [shouldRedirect, setShouldRedirect] = useState(false);
 
     const handleSignIn = async () =>{

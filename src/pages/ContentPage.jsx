@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import NoteCard from "../components/NoteCard";
 import { createPortal } from "react-dom";
 import FormPopup from "../components/FormPopup";
+import Pagination from "../components/Pagination";
 function ContentPage(){
    
     const user = JSON.parse(localStorage.getItem("user"));
@@ -16,6 +17,12 @@ function ContentPage(){
     
     const [usersContent, setUsersContent] = useState([]);
     const [isOpen, setIsOpen] = useState(false)
+    const [currentPage, setCurrentPage] = useState(2)
+    const [postsPerPage, setPostsPerPage] = useState(7)
+    const [isClicked, setIsClicked] = useState(1)  //Pagination
+
+    const lastPageIndex = currentPage * postsPerPage;
+    const firstPageIndex = lastPageIndex - postsPerPage;
 
 
     const signOutHandler = () =>{
@@ -38,6 +45,11 @@ function ContentPage(){
         setIsOpen(prevState => !prevState);
     }
 
+
+    const handlePageClick = (index) =>{
+        setCurrentPage(index)
+    }
+
     useEffect(()=>{
 
       const getInfo = () =>{
@@ -50,7 +62,7 @@ function ContentPage(){
       getInfo();
     },[])
 
-    
+    const currentPosts = usersContent.slice(firstPageIndex, lastPageIndex);
 
     const button = {
         rest: { scale: 1 },
@@ -81,6 +93,7 @@ function ContentPage(){
                     sm:grid-cols-2
                     md:grid-cols-3
                     lg:grid-cols-4
+                    md:gap-y-0
                     gap-y-16
                     gap-x-14
                     "
@@ -117,7 +130,7 @@ function ContentPage(){
                    
                 </motion.div>
                 {
-                    usersContent.map((item)=>{
+                    currentPosts.map((item)=>{
                         return(
                             <NoteCard
                                 key = {item.id}
@@ -139,7 +152,7 @@ function ContentPage(){
                 }
                 
             </div>
-
+            <Pagination  totalPosts={usersContent.length} postsPerPage={postsPerPage} currentPage={currentPage} handlePageClick={handlePageClick} setCurrentPage={setCurrentPage}/>
         </>
     )
 }
