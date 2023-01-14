@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { motion } from 'framer-motion';
 
 export default function Pagination({totalPosts, postsPerPage, currentPage, handlePageClick, setCurrentPage}) {
     const pages = [];
@@ -28,7 +28,15 @@ export default function Pagination({totalPosts, postsPerPage, currentPage, handl
         }
     }
 
-    //absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2
+    const buttonVariant = {
+        hover: {scale:1.1},
+        tap: {scale: 0.8}
+    }
+
+    const pageVariant = {
+        initial: {y:0},
+        motion: {y:[0,3,0]}
+    }
 
     return (
         <>
@@ -36,11 +44,11 @@ export default function Pagination({totalPosts, postsPerPage, currentPage, handl
 
                 <div className='flex gap-x-10 text-center mx-auto items-center justify-center'>
 
-                    <button className={buttonStyle} onClick={backBtnClick}>
-                        <img src="https://img.icons8.com/material-outlined/24/FFFFFF/long-arrow-left.png"/>
-                    </button>
+                    <motion.button className={buttonStyle} onClick={backBtnClick} variants={buttonVariant} whileHover="hover" whileTap="tap">
+                        <img src="https://img.icons8.com/ios/24/FFFFFF/long-arrow-left.png"/>
+                    </motion.button>
 
-                    <div className='bg-[#d8c4b4] text-[#f8f4f4] flex gap-y-3 justify-center items-center shadow-lg rounded-3xl px-5'>
+                    <div className='bg-[#d8c4b4] text-[#f8f4f4] flex gap-y-3 justify-center items-center shadow-lg rounded-3xl py-1 px-5'>
                         {
                             pages.map((page,index)=>{
                                 const clickedBackground = currentPage === page ? 
@@ -48,16 +56,25 @@ export default function Pagination({totalPosts, postsPerPage, currentPage, handl
                                 : 
                                 "bg-transparent text-white"
                                 return (
-                                    <button className={`mx-3 rounded-full h-[40px] w-[40px] leading-[40px] ${clickedBackground}`} 
-                                    key={index} onClick={() => handlePageClick(page)}>{page}</button>
+                                    <motion.button 
+                                        className={`mx-3 rounded-full h-[40px] w-[40px] leading-[40px] ${clickedBackground}`} 
+                                        key={index} 
+                                        onClick={() => handlePageClick(page)}
+                                        variants={pageVariant}
+                                        initial="initial"
+                                        animate="motion"
+                                        whileTap="motion"
+                                    >
+                                        {page}
+                                    </motion.button>
                                 )
                             })
                         }
                     </div>
 
-                    <button className={`flipImg ${buttonStyle}`} onClick={fwdBtnClick}>
-                        <img src="https://img.icons8.com/material-outlined/24/FFFFFF/long-arrow-left.png"/>
-                    </button>
+                    <motion.button className={buttonStyle} onClick={fwdBtnClick} variants={buttonVariant} whileHover="hover" whileTap="tap">
+                        <img src="https://img.icons8.com/ios/24/FFFFFF/long-arrow-right--v1.png"/>
+                    </motion.button>
                 </div>
             </div>
         </>

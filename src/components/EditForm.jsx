@@ -43,6 +43,13 @@ export default function EditForm({companion_Object, companion, editNoteWindow, t
         }
     };
 
+    const companionVariant = {
+        motion: {
+            y:[0,30,0,30,0,30,0],
+            transition:{duration:2}
+        },
+    }
+
   return (
     <>
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-[rgb(0,0,0,0.7)] h-screen w-screen z-50"></div>
@@ -52,7 +59,11 @@ export default function EditForm({companion_Object, companion, editNoteWindow, t
 
         <form className='grid grid-cols-1' onSubmit={handleSubmit} >
 
-            {!isNone && <img src={companion_Object[companion].card} alt={companion} className={companion_Object[companion].class} style={{width: "6rem"}}/>}
+            {!isNone && 
+                (
+                    <motion.img src={companion_Object[companion].card} alt={companion} className={companion_Object[companion].class} style={{width: "6rem"}} variants={companionVariant} whileHover="motion" />
+                )
+            }
 
             <motion.button 
                 className='absolute right-4 top-4 p-4 active:border-2 ' 
